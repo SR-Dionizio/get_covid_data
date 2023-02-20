@@ -1,8 +1,13 @@
-import requests
-from bs4 import beautifulsoup
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
 
-url = 'https://infoms.saude.gov.br/extensions/covid-19_html/covid-19_html.html'
-headers = {
-        'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36"}
+url = 'https://news.google.com/covid19/map?hl=pt-BR&mid=%2Fm%2F015fr&gl=BR&ceid=BR%3Apt-419&state=1'
 
-        
+response = urlopen(url)
+html = response.read()
+
+soup = BeautifulSoup(html, 'html.parser')
+
+estado = soup.find('div', class_='pcAJd').get_text()
+
+print(estado)
