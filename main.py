@@ -8,6 +8,10 @@ html = response.read()
 
 soup = BeautifulSoup(html, 'html.parser')
 
-estado = soup.find('div', class_='pcAJd').get_text()
+estatistica_covid19 = soup.find('table', class_='pH8O4c')
+por_estados = estatistica_covid19.find_all('th', class_= 'l3HOY')
 
-print(estado)
+for estatistica in por_estados:
+    estados = estatistica.find('div', class_ = 'pcAJd').get_text()
+
+    print(estados)
