@@ -37,6 +37,7 @@ for linha in linhas:
 
 lista_estados.pop(0)
 df = pd.DataFrame({'Estados': lista_estados, 'Casos': lista_casos, 'Mortes': lista_mortes})
+df.drop([0, 1], inplace=True)
 print(df)
 
 df.to_csv('covid19.csv', mode='a', header=True, index=False, sep=';')
