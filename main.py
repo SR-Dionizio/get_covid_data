@@ -10,21 +10,22 @@ html = response.read()
 
 soup = BeautifulSoup(html, 'html.parser')
 
-estatistica_covid19 = soup.find('table', class_='pH8O4c')
-por_estados = estatistica_covid19.find_all('th', class_= 'l3HOY')
-total_casos = estatistica_covid19.find_all('tr')
+tabela_covid19 = soup.find('table', class_='pH8O4c')
 
-covid19 = []
-
-for estatistica1, estatistica2 in zip(por_estados, total_casos):
-    estatistica1 = estatistica1.get_text()
-    covid19.append(estatistica1)
+linhas = tabela_covid19.find_all('tr')
 
 
-
-    casos = estatistica2.find('td')
+for linha in linhas:
+    estados = linha.find('th').get_text()
+    
+    casos = linha.find('td')
     if casos is not None:
-        texto_formatado = casos.string
-        if texto_formatado:
-            covid19.append(texto_formatado)
-print(covid19)
+        casos_formatado = casos.string
+        if casos_formatado:
+            
+            '''print(estados, texto_formatado)'''
+
+    mortes = linha.find_all('td')
+    if len(mortes) >= 5:
+        mortes_formatado = mortes[4]
+        print(mortes_formatado.get_text())
