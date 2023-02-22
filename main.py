@@ -21,9 +21,7 @@ lista_mortes = []
 for linha in linhas:
     estados = linha.find('th').get_text()
     lista_estados.append(estados)
-    
 
-    
     casos = linha.find('td')
     if casos is not None:
         casos_formatado = casos.string
@@ -38,7 +36,9 @@ for linha in linhas:
 lista_estados.pop(0)
 df = pd.DataFrame({'Estados': lista_estados, 'Casos': lista_casos, 'Mortes': lista_mortes})
 df.drop([0, 1], inplace=True)
+df = df.sort_values('Estados')
 print(df)
 
-df.to_csv('covid19.csv', mode='a', header=True, index=False, sep=';')
+
+'''df.to_csv('covid19.csv', mode='a', header=True, index=False, sep=';')'''
 
