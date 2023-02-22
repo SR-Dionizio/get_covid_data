@@ -22,8 +22,7 @@ for linha in linhas:
     if casos is not None:
         casos_formatado = casos.string
         if casos_formatado:
-            
-            '''print(estados, texto_formatado)'''
+            pass
 
     mortes = linha.find_all('td')
     if len(mortes) >= 5:
