@@ -58,5 +58,5 @@ df = df.sort_values('Estados')
 print(df)
 
 
-'''df.to_csv('covid19.csv', mode='a', header=True, index=False, sep=';')'''
+df.to_csv('covid19.csv', mode='a', header=True, index=False, sep=';')
 
