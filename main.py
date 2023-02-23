@@ -1,4 +1,3 @@
-import re
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -16,6 +15,8 @@ linhas = tabela_covid19.find_all('tr')
 
 lista_estados = []
 lista_casos = []
+lista_casos_dia = []
+casos_um_milhao = []
 lista_mortes = []
 
 for linha in linhas:
@@ -28,13 +29,18 @@ for linha in linhas:
         if casos_formatado:
             lista_casos.append(casos_formatado)
 
+    casos_dia = linha.find_all('td')
+    if len(casos_dia) >= 2:
+        casos_dia_formatado = casos_dia[1]
+        lista_casos_dia.append(casos_dia_formatado.text)
+
     mortes = linha.find_all('td')
     if len(mortes) >= 5:
         mortes_formatado = mortes[4]
         lista_mortes.append(mortes_formatado.text)
 
 lista_estados.pop(0)
-df = pd.DataFrame({'Estados': lista_estados, 'Casos': lista_casos, 'Mortes': lista_mortes})
+df = pd.DataFrame({'Estados': lista_estados, 'Casos': lista_casos, 'Novos Casos (1 dia)':lista_casos_dia, 'Mortes': lista_mortes})
 df.drop([0, 1], inplace=True)
 df = df.sort_values('Estados')
 print(df)
